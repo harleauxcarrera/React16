@@ -19,4 +19,84 @@ Lecture 50 Rendering Content Conditionally
     }
     This way keeps the return() call a lot cleaner.
 
-    
+Lecture 53 Outputting Lists
+
+  Use the map() method on arrays to map every item in the array(persons) into
+  a valid JSX component: map() takes an arbitrary arg to hold each item in the array the method
+  was called on (persons)
+
+  Code:
+    if(this.state.showPersons){
+      persons =   (
+      <div>
+        {this.state.persons.map(person =>{
+          <Person
+            name = {person.name}
+            age = {person.age}
+          />
+        })}
+      </div>
+      );
+    }
+
+Lecture 54 Lists and state
+
+  Map() method can take another argument e.g. 'index' to keep track of each element in array where map() was called on
+  Made a deletepersonhandler method which takes in the index arg passed in on the click prop in the Person component
+    this method ^  takes the person index arg , first gets the persons array from the state, uses splice(personIndex, 1) to remove
+    that element and setState({persons:persons}) updates the persons array in the state
+
+Lecture 55 update state immutably
+  Always create a copy of state data before manipulating it. Never change the state directly.
+
+  Manipulating the persons array directly from the state is not a good practice. It is better to create a copy
+  of the array in state (persons) before manipulating. We can use the slice() method to make a copy of the array
+
+  Code:
+    const persons =  this.state.persons.slice()
+  Another alternative to making a copy of the persons array is to use the SPREAD operator (...)
+  Code:
+    const persons = [...this.state.persons];
+  Spread takes all elements of old array and spreads them into the new array (makes a copy)
+
+Lecture 56 List and Keys
+
+  Key is a prop that is important to add when rendering lists of data
+    It is a default propery React expects to find in any element whether custom or preset
+    it is used to help update the list effeciently
+
+  The key prop should be unique so each element can be identified.
+    change the person state so that now it includes a property called id which will
+    be used as the unique key prop inside the Person element
+
+Lecture 57 Flexible Lists
+
+  the nameChangedHandler takes the id as an arg as well as the event,
+     we can use the findIndex() method to find the index of each element in an array,
+      this method returns true or false depending whether it was the element we were looking for
+      we can use the ID that each person has and compare it with the id passed in to the nameChangedHandler method
+
+      Code:
+      nameChangedHandler(event, id){
+        const personIndex = this.state.persons.findIndex( p => {
+          return p.id == id; //returns true if ids match
+        });
+
+        const person = {
+        ...this.state.persons[personIndex]; //create a person const of now known index
+        }
+      }
+
+    Now we can use personIndex to identify which element in persons array we are going to target
+    and change the name only on that person and then update the array by making a copy of persons array
+    Code:
+      person.name = event.target.value; //will change the specified element 'name' property
+
+      const persons = [...this.state.persons]; //make a copy of the original persons array from the state
+      persons[personIndex] = person; //update the persons array with newly changed person element.
+
+    Now we can finally update the whole persons array in state by using setState
+
+    Code:
+
+      this.setState({persons: persons}) // updates old persons array with newly updated one.
