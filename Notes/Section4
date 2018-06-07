@@ -1,0 +1,22 @@
+Lecture 50 Rendering Content Conditionally
+
+  Made button's onClick method trigger a method to toggle (hide/show) a certain div
+    the div is wrapped in {} and this.state.showPersons ? <div>...</div>
+        is added to check if original value of showPersons is true, if not true
+        before ending bracket write " : null "
+
+        Code:
+
+        toggleDivHandler = () => {
+          const doesShow = this.state.showPersons (originaly == false)
+          this.setState({showPersons: !doesShow})
+        }
+
+    An alternative to using the ternary expression statement used above,
+    we can create a constant variable , say, "persons" = null and right after the render() method call
+    write if(this.state.showPersons){
+      persons = <div>...</div>
+    }
+    This way keeps the return() call a lot cleaner.
+
+    

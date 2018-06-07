@@ -1,10 +1,11 @@
 Lecture 40 Handling Events
+
    Used onClick insisde the button
    and defined a method called
    switch name handler
 
     Changing state with onClick
-      Once state prop is defined insisde c
+      Once state prop is defined insisde
       class based component, the method that gets
       ran for onClick will use the setState({})
       method built in to react
@@ -48,7 +49,7 @@ Lecture 46 Adding stylesheets
     either using traditional class based styling
     or inline styles which require a render method that declares
     a const style property which is then passed as a prop to the component
-    
+
     add styling to compoennts using their own .css file
     use className in the component instead of class
       import the css file into the component.js file
