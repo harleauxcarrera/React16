@@ -19,25 +19,27 @@ Lecture 50 Rendering Content Conditionally
     }
     This way keeps the return() call a lot cleaner.
 
-Lecture 53 Outputting Lists
+Lecture 52/53  Outputting Lists
 
-  Use the map() method on arrays to map every item in the array(persons) into
-  a valid JSX component: map() takes an arbitrary arg to hold each item in the array the method
-  was called on (persons)
+          Convert lists/ arrays into proper JSX format using the map() method.
+              the map method receives an argument (name of your choice) which is represents each element in the array
+              Previously, we coded an array named persons that holds 3 Person components that was held in the state.
+              We then hardcoded each person component and assigned each property using the index. <Person name={this.state.persons[0].name}, <Person name={this.state.persons[1].name}>
+              Now lets change the code so it populates the person components dynamically.
 
-  Code:
-    if(this.state.showPersons){
-      persons =   (
-      <div>
-        {this.state.persons.map(person =>{
-          <Person
-            name = {person.name}
-            age = {person.age}
-          />
-        })}
-      </div>
-      );
-    }
+              Code:
+
+              if (this.state.showPersons){
+                persons = (
+                <div>
+                {this.state.persons.map(person => {  // the map() function maps every element in array
+                  return <Person                     /return a dynamically populating Person component thanks to the map() method
+                    name = {person.name}
+                    age = {person.age}/>
+                })}
+                </div>
+                );
+              }
 
 Lecture 54 Lists and state
 
