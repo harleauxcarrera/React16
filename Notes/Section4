@@ -43,20 +43,38 @@ Lecture 52/53  Outputting Lists
 
 Lecture 54 Lists and state
 
-  Map() method can take another argument e.g. 'index' to keep track of each element in array where map() was called on
+  Map() method can take another argument e.g. 'index' to keep track of each element in array
   Made a deletepersonhandler method which takes in the index arg passed in on the click prop in the Person component
     this method ^  takes the person index arg , first gets the persons array from the state, uses splice(personIndex, 1) to remove
     that element and setState({persons:persons}) updates the persons array in the state
+Code:
+  The Person Component has a click listener:
+    const person = (props) => {
+      <p onClick={props.click}>...
+    }
+  Inside App.js, the dynamic Person should have a click prop = {()=> this.deletePersonHandler(index)}  // the second arg passed to map() will identify which person is being clicked on.
+                                              make arrow function ^ so you can pass an arg ----^
+
+  deletePersonHandler = (personIndex) => {
+    const persons = this.state.persons;
+    persons.splice(personIndex, 1) //removes the specified index, and only 1 element
+    this.setState({persons: persons})
+
+}
 
 Lecture 55 update state immutably
-  Always create a copy of state data before manipulating it. Never change the state directly.
+  The way we were deleting Person components above has a flaw:
+     Since objects are reference types, splicing the persons array results in modifying the original data which is not a good idea.
+     so,
+     Always create a copy of state data before manipulating it. Never change the state directly.
 
   Manipulating the persons array directly from the state is not a good practice. It is better to create a copy
   of the array in state (persons) before manipulating. We can use the slice() method to make a copy of the array
 
   Code:
     const persons =  this.state.persons.slice()
-  Another alternative to making a copy of the persons array is to use the SPREAD operator (...)
+
+  Although a more common way to making a copy of the persons array is to use the SPREAD operator (...)
   Code:
     const persons = [...this.state.persons];
   Spread takes all elements of old array and spreads them into the new array (makes a copy)
@@ -64,17 +82,26 @@ Lecture 55 update state immutably
 Lecture 56 List and Keys
 
   Key is a prop that is important to add when rendering lists of data
-    It is a default propery React expects to find in any element whether custom or preset
-    it is used to help update the list effeciently
+    It is a default property React expects to find in any element whether custom or preset
+    It is used to help update the list effeciently
 
   The key prop should be unique so each element can be identified.
     change the person state so that now it includes a property called id which will
-    be used as the unique key prop inside the Person element
+    be used as the unique key prop inside the Person component
+
+  Code:
+    state = {
+    persons[
+      {id: 'asda2', name: "max", age: 28}
+      ]
+    }
+
+    And now the rendered Person Component has a prop called key={person.id} which uniquely identifies itself.
 
 Lecture 57 Flexible Lists
 
   the nameChangedHandler takes the id as an arg as well as the event,
-     we can use the findIndex() method to find the index of each element in an array,
+     we can use the findIndex() method to find the index of the element in an array we are looking for to delete.
       this method returns true or false depending whether it was the element we were looking for
       we can use the ID that each person has and compare it with the id passed in to the nameChangedHandler method
 
@@ -85,7 +112,8 @@ Lecture 57 Flexible Lists
         });
 
         const person = {
-        ...this.state.persons[personIndex]; //create a person const of now known index
+        ...this.state.persons[personIndex]; //create a person const object {} and use the spread operator to fetch all properties of
+        [personIndex] element ( making a copy is always better than modifying original data)
         }
       }
 
