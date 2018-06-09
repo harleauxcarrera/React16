@@ -1,0 +1,38 @@
+Styling Components in React
+
+Lecture 61
+
+  Inline styles are good to target specific element and are written in camelCase javaScript not css
+
+  External style sheets are written in pure css
+
+Lecture 62
+
+  Dynamic styling through Conditionally changing the 'style' const inside if statement where persons are showing. (set default color of button to green)
+
+Lecture 63 Dynamically adding classNames
+
+Lecture 64 Adding and using Radium to be able to use inline styles with pseudo selectors and media queries
+  npm install radium
+
+  make sure to wrap the App component with radium
+
+  Code:
+    export default Radium(App); //radium called a higher-order component
+
+  import radium and now you can use pseudo selectors like '':hover' in the inline styling constant
+
+  in order to use media queries as inline styles, you must import a Component called StyleRoot from radium
+  and wrap the retured dive in app.js in a StyleRoot component
+
+  Code:
+
+    import Radium, {StleRoot} from 'radium';
+
+    return(
+      <StyleRoot>
+        <div>
+            /.../
+        </div>
+      </StyleRoot>
+    )
